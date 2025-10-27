@@ -1,8 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AiOutlineArrowRight, AiOutlineStar } from "react-icons/ai";
-import { GiKnifeFork } from "react-icons/gi";
-import heroImg from "../assets/restaurant-hero.jpg"; // add your image here
+import { GiKnifeFork, GiMeal } from "react-icons/gi";
 
 export default function Home() {
   const featuredMenu = [
@@ -14,26 +13,28 @@ export default function Home() {
   return (
     <main className="space-y-20">
 
-      {/* Hero Section */}
-      <section className="relative bg-blue-600 text-white h-screen flex items-center justify-center">
-        <img
-          src={heroImg}
-          alt="Restaurant"
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
-        />
+      {/* Hero Section with gradient background */}
+      <section className="relative bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-600 text-white h-screen flex flex-col items-center justify-center gap-6">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           className="text-center px-4"
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">MetroSites Restaurant</h1>
-          <p className="text-lg md:text-2xl mb-6">Delicious food, crafted with love for every bite.</p>
+          <div className="text-6xl mb-4 animate-bounce">
+            <GiMeal />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+            Welcome to MetroSites
+          </h1>
+          <p className="text-lg md:text-2xl mb-6">
+            Taste the finest flavors crafted with passion and love.
+          </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="#menu"
-            className="btn btn-primary btn-lg flex items-center gap-2"
+            className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg shadow-lg inline-flex items-center gap-2 hover:bg-gray-100 transition"
           >
             Explore Menu <AiOutlineArrowRight />
           </motion.a>
@@ -49,12 +50,12 @@ export default function Home() {
           transition={{ duration: 1 }}
         >
           <h2 className="text-3xl font-bold mb-4">Our Story</h2>
-          <p className="text-gray-700 max-w-2xl mx-auto mb-6">
-            MetroSites Restaurant brings the finest flavors from local ingredients
-            to your table. Every dish is crafted with care and passion.
+          <p className="text-gray-700 max-w-2xl mx-auto mb-6 text-lg">
+            MetroSites Restaurant brings together the best local ingredients
+            to create unforgettable meals. Every dish is a story on your plate.
           </p>
           <motion.div
-            className="inline-flex items-center gap-2 text-yellow-400 text-xl"
+            className="inline-flex items-center gap-2 text-yellow-400 text-2xl"
             whileHover={{ scale: 1.1 }}
           >
             <AiOutlineStar />
@@ -83,13 +84,13 @@ export default function Home() {
             {featuredMenu.map((item, idx) => (
               <motion.div
                 key={idx}
-                whileHover={{ scale: 1.05 }}
-                className="card bg-white shadow-lg p-6 rounded-lg hover:shadow-2xl transition"
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="card bg-white shadow-lg p-6 rounded-xl hover:shadow-2xl transition duration-300"
               >
-                <div className="text-4xl text-blue-600 mb-4">{item.icon}</div>
+                <div className="text-5xl text-blue-600 mb-4">{item.icon}</div>
                 <h3 className="text-xl font-bold mb-2">{item.name}</h3>
                 <p className="text-gray-600 mb-4">{item.desc}</p>
-                <p className="text-blue-600 font-semibold">{item.price}</p>
+                <p className="text-blue-600 font-semibold text-lg">{item.price}</p>
               </motion.div>
             ))}
           </div>
@@ -97,7 +98,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-20 text-center">
+      <section className="bg-gradient-to-r from-indigo-600 via-blue-600 to-blue-500 text-white py-20 text-center">
         <motion.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -111,7 +112,7 @@ export default function Home() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           href="#contact"
-          className="btn btn-accent btn-lg"
+          className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg shadow-lg inline-block hover:bg-gray-100 transition"
         >
           Book Now
         </motion.a>
