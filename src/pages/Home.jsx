@@ -8,12 +8,6 @@ import food2 from "../assets/food2.webp";
 import food3 from "../assets/food3.webp";
 
 export default function Home() {
-  const featuredMenu = [
-    { name: "Grilled Salmon", desc: "Freshly grilled, served with veggies", price: "$25", icon: <GiKnifeFork /> },
-    { name: "Classic Burger", desc: "Beef patty, cheese, lettuce, tomato", price: "$15", icon: <GiKnifeFork /> },
-    { name: "Veggie Pasta", desc: "Seasonal vegetables with creamy sauce", price: "$18", icon: <GiKnifeFork /> },
-  ];
-
   const heroImages = [food1, food2, food3];
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -24,10 +18,28 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const services = [
+    {
+      title: "Fine Dining",
+      desc: "Experience elegant meals with carefully selected ingredients and exquisite presentation.",
+      icon: <GiKnifeFork className="text-6xl text-blue-500 mx-auto" />,
+    },
+    {
+      title: "Home Delivery",
+      desc: "Get your favorite meals delivered to your doorstep quickly and safely.",
+      icon: <GiMeal className="text-6xl text-indigo-500 mx-auto" />,
+    },
+    {
+      title: "Event Catering",
+      desc: "Take proper takeaway of your special occasions with our customized catering services.",
+      icon: <GiKnifeFork className="text-6xl text-purple-500 mx-auto" />,
+    },
+  ];
+
   return (
     <main className="space-y-20">
 
-      {/* Hero Section with background carousel */}
+      {/* Hero Section */}
       <section
         className="relative text-white h-screen flex flex-col items-center justify-center gap-6"
         style={{
@@ -47,19 +59,26 @@ export default function Home() {
           <div className="text-6xl mb-4 animate-bounce">
             <GiMeal />
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
-            Welcome to MetroSites
-          </h1>
+       <motion.h1
+  initial={{ opacity: 0, y: -30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="text-4xl md:text-6xl font-extrabold mb-4 text-center bg-clip-text text-transparent 
+             bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 drop-shadow-lg"
+>
+  Welcome to MetroSites Resturant
+</motion.h1>
+
           <p className="text-lg md:text-2xl mb-6">
             Taste the finest flavors crafted with passion and love.
           </p>
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href="#menu"
+            href="#services"
             className="bg-white text-blue-600 font-bold py-3 px-6 rounded-lg shadow-lg inline-flex items-center gap-2 hover:bg-gray-100 transition"
           >
-            Explore Menu <AiOutlineArrowRight />
+            Explore Services <AiOutlineArrowRight />
           </motion.a>
         </motion.div>
       </section>
@@ -72,8 +91,8 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-3xl font-bold mb-4">Our Story</h2>
-          <p className="text-gray-700 max-w-2xl mx-auto mb-6 text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-600">Our Story</h2>
+          <p className="text-gray-700 max-w-2xl mx-auto mb-6 text-lg md:text-xl">
             MetroSites Restaurant brings together the best local ingredients
             to create unforgettable meals. Every dish is a story on your plate.
           </p>
@@ -90,30 +109,33 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Featured Menu */}
-      <section id="menu" className="bg-gray-50 py-20">
+      {/* Services Section */}
+      <section id="services" className="bg-gray-50 py-20">
         <div className="container mx-auto px-4 md:px-0 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-3xl font-bold mb-12"
+            className="text-3xl md:text-4xl font-bold mb-12 text-blue-600"
           >
-            Featured Menu
+            Our Services
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {featuredMenu.map((item, idx) => (
+          <div className="grid md:grid-cols-3 gap-10">
+            {services.map((service, idx) => (
               <motion.div
                 key={idx}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="card bg-white shadow-lg p-6 rounded-xl hover:shadow-2xl transition duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                className="bg-white shadow-lg rounded-xl p-8 flex flex-col items-center text-center hover:shadow-2xl transition-all"
               >
-                <div className="text-5xl text-blue-600 mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                <p className="text-gray-600 mb-4">{item.desc}</p>
-                <p className="text-blue-600 font-semibold text-lg">{item.price}</p>
+                <div className="mb-6">{service.icon}</div>
+                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                <p className="text-gray-600">{service.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -140,6 +162,7 @@ export default function Home() {
           Book Now
         </motion.a>
       </section>
+
     </main>
   );
 }
