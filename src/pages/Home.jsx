@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AiOutlineArrowRight, AiOutlineStar } from "react-icons/ai";
 import { GiKnifeFork, GiMeal } from "react-icons/gi";
+
+import food1 from "../assets/food.jpg";
+import food2 from "../assets/food2.webp";
+import food3 from "../assets/food3.webp";
 
 export default function Home() {
   const featuredMenu = [
@@ -10,16 +14,35 @@ export default function Home() {
     { name: "Veggie Pasta", desc: "Seasonal vegetables with creamy sauce", price: "$18", icon: <GiKnifeFork /> },
   ];
 
+  const heroImages = [food1, food2, food3];
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000); // change every 5 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="space-y-20">
 
-      {/* Hero Section with gradient background */}
-      <section className="relative bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-600 text-white h-screen flex flex-col items-center justify-center gap-6">
+      {/* Hero Section with background carousel */}
+      <section
+        className="relative text-white h-screen flex flex-col items-center justify-center gap-6"
+        style={{
+          backgroundImage: `url(${heroImages[currentImage]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "background-image 1s ease-in-out",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div> {/* overlay */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-center px-4"
+          className="relative z-10 text-center px-4"
         >
           <div className="text-6xl mb-4 animate-bounce">
             <GiMeal />
