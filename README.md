@@ -1,6 +1,6 @@
 # metrosites-restaurant-basic
 
-BASIC (Brochure-style Restaurant Site)
+
 
 Project / Repo Naming:
 
