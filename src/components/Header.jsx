@@ -1,68 +1,73 @@
-import React, { useState } from 'react';
-import { FiMenu } from 'react-icons/fi';
-import { motion } from 'framer-motion';
-import { AiOutlineHome, AiOutlineMenu, AiOutlineInfoCircle, AiOutlineMail } from 'react-icons/ai';
+// src/components/Header.jsx
+import React, { useState } from "react";
+import { Menu, X, Heart } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const links = [
-    { href: "#home", label: "Home", icon: <AiOutlineHome size={20} /> },
-    { href: "#menu", label: "Menu", icon: <AiOutlineMenu size={20} /> },
-    { href: "#about", label: "About", icon: <AiOutlineInfoCircle size={20} /> },
-    { href: "#contact", label: "Contact", icon: <AiOutlineMail size={20} /> },
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Menu", href: "/menu" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
-    <header className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center p-4">
-        <h1 className="text-2xl md:text-3xl font-extrabold tracking-wide">
-          MetroSites Restaurant
-        </h1>
+    <header className="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-600 text-white shadow-md fixed w-full z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center p-4 md:p-6">
+        {/* Logo */}
+        <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center space-x-2"
+        >
+          <Heart size={28} className="text-pink-400 animate-pulse" />
+          <span className="font-bold text-xl md:text-2xl">MetroSites Restaurant</span>
+        </motion.div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-6 font-medium text-lg">
-          {links.map((link) => (
+        <nav className="hidden md:flex space-x-8 font-medium text-lg">
+          {navLinks.map((link) => (
             <motion.a
-              key={link.href}
+              key={link.name}
               href={link.href}
-              className="flex items-center gap-2 hover:text-gray-200 transition-all duration-300"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, color: "#FACC15" }} // yellow accent
+              className="transition-colors"
             >
-              {link.icon} <span>{link.label}</span>
+              {link.name}
             </motion.a>
           ))}
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-white text-3xl p-1"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <FiMenu />
-        </button>
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <motion.div
-          className="md:hidden bg-blue-500 px-4 pb-4 flex flex-col"
+        <motion.nav
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          animate={{ height: "auto", opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="md:hidden bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-600 text-white flex flex-col space-y-4 p-6"
         >
-          {links.map((link) => (
-            <motion.a
-              key={link.href}
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
               href={link.href}
-              className="flex items-center gap-2 py-3 text-lg hover:text-gray-200 transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
+              className="hover:text-yellow-400 transition text-lg"
               onClick={() => setIsOpen(false)}
             >
-              {link.icon} <span>{link.label}</span>
-            </motion.a>
+              {link.name}
+            </a>
           ))}
-        </motion.div>
+        </motion.nav>
       )}
     </header>
   );
