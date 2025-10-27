@@ -30,7 +30,7 @@ export default function Home() {
       icon: <GiMeal className="text-6xl text-indigo-500 mx-auto" />,
     },
     {
-      title: "Event Catering",
+      title: "Takeaway Handling",
       desc: "Take proper takeaway of your special occasions with our customized catering services.",
       icon: <GiKnifeFork className="text-6xl text-purple-500 mx-auto" />,
     },
